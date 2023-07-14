@@ -306,7 +306,6 @@ class SearchEngine(object):
         self,
         state: str,
         best_match: bool = True,
-        min_similarity: int = self.fuzzy_confidence,
     ) -> typing.List[str]:
         """
         Fuzzy search correct state.
@@ -324,12 +323,12 @@ class SearchEngine(object):
         else:
             if best_match:
                 state_long, confidence = extractOne(state, self.state_list)
-                if confidence >= min_similarity:
+                if confidence >= self.fuzzy_confidence:
                     result_state_short_list.append(
                         MAPPER_STATE_ABBR_LONG_TO_SHORT[state_long])
             else:
                 for state_long, confidence in extract(state, self.state_list):
-                    if confidence >= min_similarity:
+                    if confidence >= self.fuzzy_confidence:
                         result_state_short_list.append(
                             MAPPER_STATE_ABBR_LONG_TO_SHORT[state_long])
 
@@ -345,7 +344,6 @@ class SearchEngine(object):
         city: str,
         state: str = None,
         best_match: bool = True,
-        min_similarity: int = self.fuzzy_confidence,
     ) -> typing.List[str]:
         """
         Fuzzy search correct city.
@@ -370,11 +368,11 @@ class SearchEngine(object):
 
         if best_match:
             city, confidence = extractOne(city, city_pool)
-            if confidence >= min_similarity:
+            if confidence >= self.fuzzy_confidence:
                 result_city_list.append(city)
         else:
             for city, confidence in extract(city, city_pool):
-                if confidence >= min_similarity:
+                if confidence >= self.fuzzy_confidence:
                     result_city_list.append(city)
 
         if len(result_city_list) == 0:
