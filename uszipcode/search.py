@@ -373,6 +373,8 @@ class SearchEngine(object):
 
         if best_match:
             city, confidence = extractOne(city, city_pool)
+            print(city)
+            print(confidence)
             if confidence >= min_similarity:
                 result_city_list.append(city)
         else:
