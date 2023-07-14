@@ -366,6 +366,7 @@ class SearchEngine(object):
 
         print("#########")
         print (city_pool)
+        print(best_match)
         print ("#########")
 
         result_city_list = list()
