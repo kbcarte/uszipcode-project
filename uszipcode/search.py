@@ -135,6 +135,7 @@ class SearchEngine(object):
         db_file_path: typing.Union[str, None] = None,
         download_url: typing.Union[str, None] = None,
         engine: Engine = None,
+        fuzzy_confidence: int = 60
     ):
         validate_enum_arg(
             self.SimpleOrComprehensiveArgEnum,
@@ -142,6 +143,7 @@ class SearchEngine(object):
             simple_or_comprehensive,
         )
         self.simple_or_comprehensive = simple_or_comprehensive
+        self.fuzzy_confidence = fuzzy_confidence
 
         if isinstance(engine, Engine):
             self.db_file_path = None
@@ -304,7 +306,7 @@ class SearchEngine(object):
         self,
         state: str,
         best_match: bool = True,
-        min_similarity: int = 70,
+        min_similarity: int = self.fuzzy_confidence,
     ) -> typing.List[str]:
         """
         Fuzzy search correct state.
@@ -343,7 +345,7 @@ class SearchEngine(object):
         city: str,
         state: str = None,
         best_match: bool = True,
-        min_similarity: int = 60,
+        min_similarity: int = self.fuzzy_confidence,
     ) -> typing.List[str]:
         """
         Fuzzy search correct city.
@@ -364,17 +366,10 @@ class SearchEngine(object):
         else:
             city_pool = self.city_list
 
-        print("#########")
-        print (city_pool)
-        print(best_match)
-        print ("#########")
-
         result_city_list = list()
 
         if best_match:
             city, confidence = extractOne(city, city_pool)
-            print(city)
-            print(confidence)
             if confidence >= min_similarity:
                 result_city_list.append(city)
         else:
