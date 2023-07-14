@@ -343,7 +343,7 @@ class SearchEngine(object):
         city: str,
         state: str = None,
         best_match: bool = True,
-        min_similarity: int = 90,
+        min_similarity: int = 60,
     ) -> typing.List[str]:
         """
         Fuzzy search correct city.
