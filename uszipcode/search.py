@@ -364,9 +364,9 @@ class SearchEngine(object):
         else:
             city_pool = self.city_list
 
-        print "#########"
-        print city_pool
-        print "#########"
+        print("#########")
+        print (city_pool)
+        print ("#########")
 
         result_city_list = list()
 
